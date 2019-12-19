@@ -3,6 +3,8 @@
 
 An interactive dashboard for monitoring and improving BnB room cleanliness, as well as recognizing and incentivizing excellent performances by our lovely cleaners.
 
+<img src="https://i.imgur.com/GjfV0CX.png" />
+
 ## Getting Started
 
 These instructions will get this dashboard up and running and fully interactive on your own machine.
