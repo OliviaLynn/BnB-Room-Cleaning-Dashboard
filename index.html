@@ -94,9 +94,9 @@ for (var i = 0; i < coll.length; i++) {
 }
 
 
-
 // The data viz:
-d3.csv("/data.csv").then(function(dataset) {
+//d3.csv("/data.csv").then(function(dataset) {
+d3.csv("https://raw.githubusercontent.com/OliviaLynn/BnB-Room-Cleaning-Dashboard/master/data.csv").then(function(dataset) {
 
 	// Filter our data based on time period:
    function sortByCleaningTime(a, b) {
