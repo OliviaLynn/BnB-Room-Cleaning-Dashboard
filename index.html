@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <!--script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script-->
+  <script src="d3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="roomSection.js"></script>
+  <script type="text/javascript" src="teamSection.js"></script>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <h1>DASHBOARD</h1>
+  <p id="subtitle"> </p>
+  <br><br>
+
+  <button class="collapsible">Room Scores</button>
+  <div class="content" id="section1">
+    <svg id="roomSliderSvg"></svg>
+    <svg id="roomSvg"></svg>
+  	<table>
+  		<thead>
+	  		<tr>
+	  			<th><span class="unicode-icon">&#9733;</span></th>
+	  			<th>Cleaning Time</th>
+	  			<th>Cleaner</th>
+	  			<th>Cleanliness Comments</th>
+	  		</tr>
+	  	</thead>
+	  	<tbody id="table1">
+	  	</tbody>
+  	</table>
+  </div>
+
+
+  <button class="collapsible">Cleaning Team</button>
+  <div class="content" id="section2">
+  	<div id="cleaner-card-area"></div>
+  	<div id="cleaner-sidebar">
+  		<h2 id="cleaner-title">[Cleaner Title]</h2>
+  		<p><span id="cleaner-count">[Number of Cleanings]</span> cleanings since <span id="cleaner-start-date">[]</span>.</p>
+  		<br><br>
+  	</div>
+  	<table>
+  		<thead>
+	  		<tr>
+	  			<th><span class="unicode-icon">&#9733;</span></th>
+	  			<th>Cleaning Time</th>
+	  			<th>Room</th>
+	  			<th>Cleanliness Comments</th>
+	  		</tr>
+	  	</thead>
+	  	<tbody id="table2">
+	  	</tbody>
+	  </table>
+  </div>
+
+<script type="text/javascript">
+
+/*
+To-do:
+- Better metrics for the cleaners - fair way to judge a collection of ratings?
+  The naive approach of an arithmetic mean is at best unhelpful, at worst misleading
+
+- Make some sort of easily-configured chart/graph code for future programmers
+	to easily create more visualizations
+
+- Finish organizing the teamSection
+
+- Refactor spacing of roomSection as per the margins-best-practice guide
+
+- Add new sections
+	- A room/cleaner table 
+  - Common tags
+
+- Maybe switch from the green/red color scale for good vs bad reviews
+  Something like 10% of men are colorblind in some capacity? Red/green being a really common kind?
+*/
+
+
+
+// For the collapsable containers:
+var coll = document.getElementsByClassName("collapsible");
+for (var i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+
+
+
+// The data viz:
+d3.csv("/data.csv").then(function(dataset) {
+
+	// Filter our data based on time period:
+   function sortByCleaningTime(a, b) {
+    return Date.parse(a["Cleaning Time"]) - Date.parse(b["Cleaning Time"]);
+  }
+console.log(dataset);
+for (line in dataset) {
+console.log(dataset[line]["Cleaner"]);
+}
+
+  // For this particular dataset, we're only looking at things 6 months old or newer
+  // In the future, when we're using the API to grab data, this whole section will look way different
+	var xMonthsAgo = new Date();
+	xMonthsAgo.setMonth(xMonthsAgo.getMonth() - 6);
+
+	var filteredDataset = dataset.filter(d => Date.parse(d["Cleaning Time"]) > xMonthsAgo);
+	var dataset = filteredDataset.sort(sortByCleaningTime);
+
+ 
+
+
+  // Update subtitle
+  var oldest = new Date(Date.parse(dataset[0]["Cleaning Time"]));
+  console.log(dataset[0]["Cleaning Time"]);
+  var newest = new Date(Date.parse(dataset[dataset.length-1]["Cleaning Time"]));
+  var options = {year: 'numeric', 
+                 month: 'long', 
+                 day: 'numeric' };
+  var oldestDateString = oldest.toLocaleDateString("en-US", options);
+  var newestDateString = newest.toLocaleDateString("en-US", options);
+  d3.select("#subtitle").text("Using " + dataset.length + " entries from " + oldestDateString + " to " + newestDateString + ".");
+
+
+	// Make the room section (this code is stored in roomSection.js)
+	makeRoomSection(dataset, xMonthsAgo);
+
+  // Make the team section, too
+	makeTeamSection(dataset, xMonthsAgo);
+
+});
+
+</script>
+</body>
+</html>
