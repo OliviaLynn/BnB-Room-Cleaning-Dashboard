@@ -1,7 +1,7 @@
 # BnB Room Cleaning Dashboard
 <img src="https://img.shields.io/badge/browser-chrome-blue" /> <img src="https://img.shields.io/badge/d3js-5.12.0-blue" /> <img src="https://img.shields.io/badge/maintained%3F-no-red" /> <img src="https://img.shields.io/github/issues/OliviaLynn/BnB-Room-Cleaning-Dashboard" /> 
 
-An interactive dashboard for monitoring and improving BnB room cleanliness, as well as incentivizing and applauding excellent performances by our lovely cleaners.
+An interactive dashboard for monitoring and improving BnB room cleanliness, as well as recognizing and incentivizing excellent performances by our lovely cleaners.
 
 ## Getting Started
 
