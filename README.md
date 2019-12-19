@@ -21,3 +21,7 @@ $ python -m http.server 8000
 Then open a new Chrome window and visit "localhost:8000" using the URL bar at the top. 
 
 *(You can technically use any browser you like, but this demo was made using Chrome and I haven't gone through the layout and spacing changes needed for other browsers yet.)*
+
+## Data
+
+The included data have been altered to preserve confidentiality and are used for sample purposes only. (The cleaners' names, for example, are now names of players on the [US Women's soccer team](https://en.wikipedia.org/wiki/United_States_women%27s_national_soccer_team) :runner:)
