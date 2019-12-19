@@ -7,7 +7,7 @@ A small demo of an interactive dashboard for monitoring and improving BnB room c
 
 ## Getting Started
 
-These instructions will get this dashboard up and running and fully interactive on your own machine.
+These instructions will get this dashboard up and running and fully interactive on your own machine. Alternatively, click [this link](https://olivialynn.github.io/BnB-Room-Cleaning-Dashboard/) to view the dashboard hosted on Github Pages.
 
 ### Prerequisites
 
